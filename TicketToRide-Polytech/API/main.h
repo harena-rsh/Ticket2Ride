@@ -30,6 +30,10 @@ typedef struct {
   t_joueur joueurs[2];
 } t_partie;
 
-void affiche(t_color tab[], int taille);
+/*Fonction qui affiche les infos sur un joueur*/
+void affiche_joueur(t_joueur*p_joueur);
+void initCartes(t_color cards[],int cartes[]);
+/*Fonction qui remplit le tableau des cartes en main*/
+void remplirCartes(int tab[],t_color*card);
 
 #endif
