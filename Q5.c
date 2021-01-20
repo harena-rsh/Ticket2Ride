@@ -34,35 +34,37 @@ void askMove(t_move* move){
   }
 }
 
-t_return_code playOurMove(t_move* move, t_color* lastCard){
+t_return_code playOurMove(t_move* move, t_color* lastCard, t_route* tabRoutes[NB_CITIES][NB_CITIES],int mesCartes[10],t_joueur monJoueur){
   t_return_code ret;
   t_color cards[4];
-  int mesCartes[10];
   int Nb_cities;
-  t_route* tabRoutes[Nb_cities][Nb_cities];
 
   switch(move->type){
     case CLAIM_ROUTE:
       ret=claimRoute(move->claimRoute.city1,move->claimRoute.city2,move->claimRoute.color,move->claimRoute.nbLocomotives);
-      MAJtabRoutes(tabRoutes,move->claimRoute.city1,move->claimRoute.city2);
+      tabRoutes[move->claimRoute.city1][move->claimRoute.city2]->libre=1;
+      tabRoutes[move->claimRoute.city2][move->claimRoute.city1]->libre=1;
       *lastCard= NONE;
       break;
 
     case DRAW_BLIND_CARD:
       ret=drawBlindCard(&move->drawBlindCard.card);
       remplirCartes(mesCartes, cards);
+      monJoueur.nb_cartes=monJoueur.nb_cartes+1;
       *lastCard=(*lastCard==NONE)? move->drawBlindCard.card : NONE;
       break;
 
     case DRAW_CARD:
       ret=drawCard(move->drawCard.card,move->drawCard.faceUp);
       remplirCartes(mesCartes, cards);
+      monJoueur.nb_cartes=monJoueur.nb_cartes+1;
       *lastCard=(*lastCard==NONE && move->drawCard.card!=MULTICOLOR)? move->drawCard.card:NONE;
       break;
 
     case DRAW_OBJECTIVES:
       ret=drawObjectives(move->drawObjectives.objectives);
       affiche_t_objectives(move->drawObjectives.objectives,3);
+      monJoueur.nb_objectifs=3;
       *lastCard=NONE;
       break;
 

@@ -1,6 +1,7 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
+#include "route.h"
 /*Création des types structurés pour suivre l'évolution du jeu*/
 /*Structure t_joueur pour suivre les cartes d'un joueur avec :
   ==nombre de wagons disponibles
@@ -13,7 +14,7 @@ typedef struct {
   int nb_wagons;
   int nb_cartes;
   int nb_objectifs;
-  t_color*cartes; //on a 10 couleurs et on utilise le même code couleur que dans TicketToRide cartes[1] pour les purples,...
+  t_color* cartes; //on a 10 couleurs et on utilise le même code couleur que dans TicketToRide cartes[1] pour les purples,...
   t_objective* objectifs;
 }t_joueur;
 
@@ -36,7 +37,7 @@ void initCartes(t_color cards[],int cartes[]);
 /*Fonction qui remplit le tableau des cartes en main*/
 void remplirCartes(int tab[],t_color*card);
 void askMove(t_move* move);
-t_return_code playOurMove(t_move* move,t_color*lastCard);
+t_return_code playOurMove(t_move* move, t_color* lastCard, t_route* tabRoutes[NB_CITIES][NB_CITIES],int mesCartes[10],t_joueur monJoueur);
 int needReplay(t_move* move, t_color lastCard);
 
 void affiche_t_objectives(t_objective tab[],int taille);

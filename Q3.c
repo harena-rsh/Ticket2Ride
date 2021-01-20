@@ -43,4 +43,4 @@ void remplirCartes(int tab[],t_color* card){
 }
 
 
-/*Fonction qui mets à jour les objectifs en ma possession*/
+/*Fonction qui mets à jour mon joueur*/

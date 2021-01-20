@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "clientAPI.h"
-//#include "TicketToRideAPI.h"
-//#include "main.h"
-//#include "route.h"
+#include "clientAPI.h"
+#include "TicketToRideAPI.h"
+#include "main.h"
+#include "route.h"
 #define IN 99
 #define N 7
 /*Dans cet exemple on a 6 noeuds soit 6 villes*/
@@ -33,7 +33,7 @@ int dijkstra(int cost[][N],int source,int target){
   int path[N]={0};
 
   /*Initialisation du tableau des distances*/
-  for(i=1;i<N;i++){
+  for(i=0;i<N;i++){
     dist[i]=IN;
     prev[i]=-1;
   }
@@ -43,7 +43,7 @@ int dijkstra(int cost[][N],int source,int target){
   while(selected[target]==0){
     min=IN;
     m=0;
-    for(i=1;i<N;i++){
+    for(i=0;i<N;i++){
       d=dist[start]+cost[start][i];
       if((d<dist[i])&&(selected[i]==0)){
         dist[i]=d;
@@ -73,23 +73,31 @@ int dijkstra(int cost[][N],int source,int target){
 
 int main(){
   int cost[N][N];
-  int i,j,w,ch,co;
-  int source,target,x,y;
+  int i,j,co;
+  int source,target;
   printf("The Shortest Path Algorithm:\n");
-  for(i=1;i<N;i++){
-    for(j=1;j<N;j++){
+  for(i=0;i<N;i++){
+    for(j=0;j<N;j++){
       cost[i][j]=IN;
     }
   }
   /*Remplir le tableau de cost*/
+
   cost[1][2]=cost[2][1]=9;
-  cost[1][4]=cost[4][1]=5;
   cost[1][3]=cost[3][1]=6;
+  cost[1][4]=cost[4][1]=5;
   cost[2][3]=cost[3][2]=2;
   cost[2][5]=cost[5][2]=1;
   cost[3][5]=cost[5][3]=1;
+  cost[5][6]=cost[6][5]=3;
   cost[4][6]=cost[6][4]=4;
-  cost[6][5]=cost[5][6]=3;
+
+  for (int i=0;i<N;i++){
+    for(int j=0;j<N;j++){
+      printf("%d\t",cost[i][j]);
+    }
+    printf("\n");
+  }
   /*for(x=1;x<N;x++){
     for(y=1;y<N;y++){
       printf("Enter the weight of a path between nodes %d and %d\n",x,y);
